@@ -58,12 +58,47 @@ namespace FinalProject
 
         static void AddCourse()
         {
+            Console.Write("Enter the course ID: ");
+            string courseID = Console.ReadLine();
 
+            Console.Write("Enter the course name: ");
+            string courseName = Console.ReadLine();
+
+            Console.Write("Enter the instructor's name: ");
+            string instructor = Console.ReadLine();
+
+            Course newCourse = new Course(courseID, courseName, instructor);
+
+            courses.Add(newCourse);
+
+            Console.WriteLine("Course added successfully.");
+        }
+
+        static void ViewAllCourses()
+        {
+            foreach (Course course in courses)
+            {
+                course.DisplayCourse();
+                Console.WriteLine();
+            }
         }
 
         static void RemoveCourse()
         {
+            Console.Write("Enter the course ID: ");
+            string courseID = Console.ReadLine();
 
+            foreach (Course course in courses)
+            {
+                if (course.CourseID == courseID)
+                {
+                    courses.Remove(course);
+                    Console.WriteLine("Course removed successfully.");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Course not found.");
         }
 
         static void AddGrade()
@@ -90,6 +125,20 @@ namespace FinalProject
             Console.WriteLine("Student not found.");
         }
 
+        static void ViewCourse(string courseID)
+        {
+            foreach (Course course in courses)
+            {
+                if (course.CourseID == courseID)
+                {
+                    course.DisplayCourse();
+                    return;
+                }
+            }
+
+            Console.WriteLine("Course not found.");
+        }
+
         static void Main(string[] args)
         {
             while (true)
@@ -98,6 +147,10 @@ namespace FinalProject
                 Console.WriteLine("[2] View All Students");
                 Console.WriteLine("[3] View Student");
                 Console.WriteLine("[4] Remove Student");
+                Console.WriteLine("[5] Add Course");
+                Console.WriteLine("[6] View All Courses");
+                Console.WriteLine("[7] View Course");
+                Console.WriteLine("[8] Remove Course");
 
                 string Choice = Console.ReadLine();
 
@@ -119,6 +172,25 @@ namespace FinalProject
                 else if (Choice == "4")
                 {
                     RemoveStudent();
+                }
+                else if (Choice == "5")
+                {
+                    AddCourse();
+                }
+                else if (Choice == "6")
+                {
+                    ViewAllCourses();
+                }
+                else if (Choice == "7")
+                {
+                    Console.Write("Enter the course ID: ");
+                    string courseID = Console.ReadLine();
+
+                    ViewCourse(courseID);
+                }
+                else if (Choice == "8")
+                {
+                    RemoveCourse();
                 }
             }
         }
