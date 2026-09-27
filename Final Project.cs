@@ -40,7 +40,20 @@ namespace FinalProject
 
         static void RemoveStudent()
         {
+            Console.Write("Enter the student's ID: ");
+            string studentID = Console.ReadLine();
 
+            foreach (Student student in students)
+            {
+                if (student.ID == studentID)
+                {
+                    students.Remove(student);
+                    Console.WriteLine("Student removed successfully.");
+                    return;
+                }
+            }
+
+            Console.WriteLine("Student not found.");
         }
 
         static void AddCourse()
@@ -65,7 +78,16 @@ namespace FinalProject
 
         static void ViewStudent(string studentID)
         {
+            foreach (Student student in students)
+            {
+                if (student.ID == studentID)
+                {
+                    student.DisplayStudent();
+                    return;
+                }
+            }
 
+            Console.WriteLine("Student not found.");
         }
 
         static void Main(string[] args)
@@ -74,6 +96,8 @@ namespace FinalProject
             {
                 Console.WriteLine("[1] Add Student");
                 Console.WriteLine("[2] View All Students");
+                Console.WriteLine("[3] View Student");
+                Console.WriteLine("[4] Remove Student");
 
                 string Choice = Console.ReadLine();
 
@@ -85,8 +109,18 @@ namespace FinalProject
                 {
                     ViewAllStudents();
                 }
+                else if (Choice == "3")
+                {
+                    Console.Write("Enter the student's ID: ");
+                    string studentID = Console.ReadLine();
+
+                    ViewStudent(studentID);
+                }
+                else if (Choice == "4")
+                {
+                    RemoveStudent();
+                }
             }
         }
     }
 }
-
