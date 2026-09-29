@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace FinalProject
 {
@@ -58,20 +59,34 @@ namespace FinalProject
 
         static void AddCourse()
         {
-            Console.Write("Enter the course ID: ");
-            string courseID = Console.ReadLine();
+            Console.WriteLine("[1] Add Existing Course");
+            Console.WriteLine("[2] Add New Course");
+            string Choice = Console.ReadLine();
 
-            Console.Write("Enter the course name: ");
-            string courseName = Console.ReadLine();
+            if (Choice == "1")
+            {
 
-            Console.Write("Enter the instructor's name: ");
-            string instructor = Console.ReadLine();
+            }
+            else if (Choice == "2")
+            {
+                Console.Write("Enter the course ID: ");
+                string courseID = Console.ReadLine();
 
-            Course newCourse = new Course(courseID, courseName, instructor);
+                Console.Write("Enter the course name: ");
+                string courseName = Console.ReadLine();
 
-            courses.Add(newCourse);
+                Console.Write("Enter the instructor's name: ");
+                string instructor = Console.ReadLine();
 
-            Console.WriteLine("Course added successfully.");
+                Course newCourse = new Course(courseID, courseName, instructor);
+
+                courses.Add(newCourse);
+
+                Console.WriteLine("Course added successfully.");
+            } else
+            {
+                Console.WriteLine("Invalid Input");
+            }
         }
 
         static void ViewAllCourses()
@@ -80,6 +95,15 @@ namespace FinalProject
             {
                 course.DisplayCourse();
                 Console.WriteLine();
+            }
+        }
+
+        static void FilterCourse()
+        {
+            foreach (Course course in courses)
+            {
+                course.FilterCourses();
+                
             }
         }
 
@@ -185,12 +209,15 @@ namespace FinalProject
                 {
                     Console.Write("Enter the course ID: ");
                     string courseID = Console.ReadLine();
-
                     ViewCourse(courseID);
                 }
                 else if (Choice == "8")
                 {
                     RemoveCourse();
+                }
+                else if (Choice == "9")
+                {
+                    FilterCourse();
                 }
             }
         }
