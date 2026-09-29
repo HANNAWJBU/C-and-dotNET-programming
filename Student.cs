@@ -1,16 +1,13 @@
 ﻿namespace FinalProject
 {
-    internal class Student
+    internal class Student : User
     {
-        public string ID { get; set; }
-        public string Name { get; set; }
         public string Major { get; set; }
         public string Year { get; set; }
 
         public Student(string id, string name, string major, string year)
+            : base(id, name)
         {
-            ID = id;
-            Name = name;
             Major = major;
             Year = year;
         }
@@ -21,6 +18,11 @@
             Console.WriteLine($"Name: {Name}");
             Console.WriteLine($"Major: {Major}");
             Console.WriteLine($"Year: {Year}");
+        }
+
+        public override void DisplayDashboard()
+        {
+            Console.WriteLine($"Student Dashboard - Welcome {Name}");
         }
     }
 }
