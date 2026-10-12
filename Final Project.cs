@@ -139,6 +139,35 @@ namespace FinalProject
             Console.WriteLine("Course not found.");
         }
 
+        static void DemonstrateUserDashboards()
+        {
+            User student = new Student(
+                "S100",
+                "John Smith",
+                "Computer Science",
+                "Junior"
+            );
+
+            User instructor = new Instructor(
+                "I100",
+                "Dr. Smith",
+                "Computer Science"
+            );
+
+            User administrator = new Administrator(
+                "A100",
+                "Admin User"
+            );
+
+            student.DisplayDashboard();
+            Console.WriteLine();
+
+            instructor.DisplayDashboard();
+            Console.WriteLine();
+
+            administrator.DisplayDashboard();
+        }
+
         static void Main(string[] args)
         {
             while (true)
@@ -151,6 +180,7 @@ namespace FinalProject
                 Console.WriteLine("[6] View All Courses");
                 Console.WriteLine("[7] View Course");
                 Console.WriteLine("[8] Remove Course");
+                Console.WriteLine("[9] Demonstrate User Dashboard");
 
                 string Choice = Console.ReadLine();
 
@@ -191,6 +221,10 @@ namespace FinalProject
                 else if (Choice == "8")
                 {
                     RemoveCourse();
+                }
+                else if (Choice == "9")
+                {
+                    DemonstrateUserDashboards();
                 }
             }
         }
