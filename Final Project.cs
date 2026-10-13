@@ -155,7 +155,6 @@ namespace FinalProject
             }
         }
 
-
         // =========================================
         // COURSE MANAGEMENT
         // =========================================
@@ -245,6 +244,47 @@ namespace FinalProject
             Console.WriteLine("Course not found.");
         }
 
+        static void EditCourse()
+        {
+            Console.Write("Enter the course's ID: ");
+            string courseID = Console.ReadLine();
+            ViewCourse(courseID);
+            Console.WriteLine("What would you like to edit?");
+            Console.WriteLine("[1] Name");
+            Console.WriteLine("[2] Instructor");
+            Console.WriteLine("[3] Back to Main Menu");
+            int option = Convert.ToInt32(Console.ReadLine());
+
+            if (option == 1)
+            {
+                Console.Write("Enter the new name: ");
+                string newName = Console.ReadLine();
+                foreach (Course course in courses)
+                {
+                    if (course.CourseID == courseID)
+                    {
+                        course.CourseName = newName;
+                        Console.WriteLine("Name updated successfully.");
+                        break;
+                    }
+                }
+            }
+            else if (option == 2)
+            {
+                Console.Write("Enter the new instructor: ");
+                string newInstructor = Console.ReadLine();
+                foreach (Course course in courses)
+                {
+                    if (course.CourseID == courseID)
+                    {
+                        course.Instructor = newInstructor;
+                        Console.WriteLine("Instructor updated successfully.");
+                        break;
+                    }
+                }
+            }
+        }
+            
 
         // =========================================
         // ENROLLMENT
@@ -629,30 +669,33 @@ namespace FinalProject
             {
                 Console.WriteLine();
 
-                Console.WriteLine(
-                    "===== Online Learning Management System =====");
+                Console.WriteLine("===== Online Learning Management System =====");
 
+                Console.WriteLine(" ");
                 Console.WriteLine("[1] Add Student");
                 Console.WriteLine("[2] View All Students");
                 Console.WriteLine("[3] View Student");
                 Console.WriteLine("[4] Remove Student");
                 Console.WriteLine("[5] Edit Student");
 
+                Console.WriteLine(" ");
                 Console.WriteLine("[6] Add Course");
                 Console.WriteLine("[7] View All Courses");
                 Console.WriteLine("[8] View Course");
                 Console.WriteLine("[9] Remove Course");
+                Console.WriteLine("[10] Edit Course");
 
-                Console.WriteLine("[10] Add Course to Student");
-                Console.WriteLine("[11] Remove Course from Student");
+                Console.WriteLine(" ");
+                Console.WriteLine("[11] Add Course to Student");
+                Console.WriteLine("[12] Remove Course from Student");
 
-                Console.WriteLine(
-                    "[12] Demonstrate User Dashboard");
+                Console.WriteLine(" ");
+                Console.WriteLine("[13] Demonstrate User Dashboard");
+                Console.WriteLine("[14] Add Grade");
+                Console.WriteLine("[15] View Student Grades");
+                Console.WriteLine("[16] Remove Grade");
 
-                Console.WriteLine("[13] Add Grade");
-                Console.WriteLine("[14] View Student Grades");
-                Console.WriteLine("[15] Remove Grade");
-
+                Console.WriteLine(" ");
                 Console.WriteLine("[0] Exit");
 
                 Console.Write("Choose an option: ");
@@ -721,30 +764,35 @@ namespace FinalProject
 
                 else if (Choice == "10")
                 {
-                    AddCourseToStudent();
+                    EditCourse();
                 }
 
                 else if (Choice == "11")
                 {
-                    RemoveCourseFromStudent();
+                    AddCourseToStudent();
                 }
 
                 else if (Choice == "12")
                 {
-                    DemonstrateUserDashboards();
+                    RemoveCourseFromStudent();
                 }
 
                 else if (Choice == "13")
                 {
-                    AddGrade();
+                    DemonstrateUserDashboards();
                 }
 
                 else if (Choice == "14")
                 {
-                    ViewStudentGrades();
+                    AddGrade();
                 }
 
                 else if (Choice == "15")
+                {
+                    ViewStudentGrades();
+                }
+
+                else if (Choice == "16")
                 {
                     RemoveGrade();
                 }
