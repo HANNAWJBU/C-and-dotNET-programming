@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace FinalProject
+﻿namespace FinalProject
 {
     internal sealed class Administrator : User
     {
@@ -11,7 +9,8 @@ namespace FinalProject
 
         public override void DisplayDashboard()
         {
-            Console.WriteLine($"Administrator Dashboard - Welcome {Name}");
+            Console.WriteLine(
+                $"Administrator Dashboard - Welcome {Name}");
         }
     }
 }
