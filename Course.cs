@@ -6,7 +6,10 @@
         public string CourseName { get; set; }
         public string Instructor { get; set; }
 
-        public Course(string courseID, string courseName, string instructor)
+        public Course(
+            string courseID,
+            string courseName,
+            string instructor)
         {
             CourseID = courseID;
             CourseName = courseName;

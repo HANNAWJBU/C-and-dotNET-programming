@@ -2,9 +2,12 @@
 {
     internal class Instructor : User
     {
-        public string Department {  get; set; }
+        public string Department { get; set; }
 
-        public Instructor(string id, string name, string department)
+        public Instructor(
+            string id,
+            string name,
+            string department)
             : base(id, name)
         {
             Department = department;
