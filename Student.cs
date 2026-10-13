@@ -9,6 +9,7 @@ namespace FinalProject
         public string Year { get; set; }
 
         public List<Course> Courses { get; set; }
+        public List<Grade> Grades { get; set; }
 
         public Student(string id, string name, string major, string year)
             : base(id, name)
@@ -17,6 +18,7 @@ namespace FinalProject
             Year = year;
 
             Courses = new List<Course>();
+            Grades = new List<Grade>();
         }
 
         public void AddCourse(Course course)

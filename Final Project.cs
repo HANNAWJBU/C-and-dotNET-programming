@@ -375,15 +375,210 @@ namespace FinalProject
 
         static void AddGrade()
         {
+            Console.Write("Enter the student's ID: ");
+            string studentID = Console.ReadLine();
 
+            Student selectedStudent = null;
+
+            foreach (Student student in students)
+            {
+                if (student.ID == studentID)
+                {
+                    selectedStudent = student;
+                    break;
+                }
+            }
+
+            if (selectedStudent == null)
+            {
+                Console.WriteLine("Student not found.");
+                return;
+            }
+
+
+            Console.Write("Enter the course ID: ");
+            string courseID = Console.ReadLine();
+
+            Course selectedCourse = null;
+
+            foreach (Course course in courses)
+            {
+                if (course.CourseID == courseID)
+                {
+                    selectedCourse = course;
+                    break;
+                }
+            }
+
+            if (selectedCourse == null)
+            {
+                Console.WriteLine("Course not found.");
+                return;
+            }
+
+
+            // Make sure the student is actually enrolled.
+            bool enrolled = false;
+
+            foreach (Course course in selectedStudent.Courses)
+            {
+                if (course.CourseID == courseID)
+                {
+                    enrolled = true;
+                    break;
+                }
+            }
+
+            if (!enrolled)
+            {
+                Console.WriteLine(
+                    "Student is not enrolled in this course.");
+
+                return;
+            }
+
+
+            // Make sure a grade does not already exist.
+            foreach (Grade grade in selectedStudent.Grades)
+            {
+                if (grade.CourseID == courseID)
+                {
+                    Console.WriteLine(
+                        "A grade already exists for this course.");
+
+                    return;
+                }
+            }
+
+
+            Console.Write("Enter the grade (0-100): ");
+
+            if (!double.TryParse(Console.ReadLine(), out double score))
+            {
+                Console.WriteLine("Invalid grade.");
+                return;
+            }
+
+            if (score < 0 || score > 100)
+            {
+                Console.WriteLine(
+                    "Grade must be between 0 and 100.");
+
+                return;
+            }
+
+
+            Grade newGrade = new Grade(courseID, score);
+
+            selectedStudent.Grades.Add(newGrade);
+
+            Console.WriteLine("Grade added successfully.");
         }
 
+        static void ViewStudentGrades()
+        {
+            Console.Write("Enter the student's ID: ");
+            string studentID = Console.ReadLine();
+
+            Student selectedStudent = null;
+
+            foreach (Student student in students)
+            {
+                if (student.ID == studentID)
+                {
+                    selectedStudent = student;
+                    break;
+                }
+            }
+
+            if (selectedStudent == null)
+            {
+                Console.WriteLine("Student not found.");
+                return;
+            }
+
+
+            if (selectedStudent.Grades.Count == 0)
+            {
+                Console.WriteLine(
+                    "This student does not have any grades.");
+
+                return;
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine($"Grades for {selectedStudent.Name}:");
+
+            foreach (Grade grade in selectedStudent.Grades)
+            {
+                string courseName = "Unknown Course";
+
+                foreach (Course course in courses)
+                {
+                    if (course.CourseID == grade.CourseID)
+                    {
+                        courseName = course.CourseName;
+                        break;
+                    }
+                }
+
+                Console.WriteLine(
+                    $"{grade.CourseID} - {courseName}: " +
+                    $"{grade.Score} ({grade.GetLetterGrade()})");
+            }
+        }
 
         static void RemoveGrade()
         {
+            Console.Write("Enter the student's ID: ");
+            string studentID = Console.ReadLine();
 
+            Student selectedStudent = null;
+
+            foreach (Student student in students)
+            {
+                if (student.ID == studentID)
+                {
+                    selectedStudent = student;
+                    break;
+                }
+            }
+
+            if (selectedStudent == null)
+            {
+                Console.WriteLine("Student not found.");
+                return;
+            }
+
+
+            Console.Write("Enter the course ID: ");
+            string courseID = Console.ReadLine();
+
+            Grade selectedGrade = null;
+
+            foreach (Grade grade in selectedStudent.Grades)
+            {
+                if (grade.CourseID == courseID)
+                {
+                    selectedGrade = grade;
+                    break;
+                }
+            }
+
+            if (selectedGrade == null)
+            {
+                Console.WriteLine(
+                    "No grade was found for that course.");
+
+                return;
+            }
+
+
+            selectedStudent.Grades.Remove(selectedGrade);
+
+            Console.WriteLine("Grade removed successfully.");
         }
-
 
         // =========================================
         // OOP DEMONSTRATION
@@ -453,6 +648,10 @@ namespace FinalProject
 
                 Console.WriteLine(
                     "[12] Demonstrate User Dashboard");
+
+                Console.WriteLine("[13] Add Grade");
+                Console.WriteLine("[14] View Student Grades");
+                Console.WriteLine("[15] Remove Grade");
 
                 Console.WriteLine("[0] Exit");
 
@@ -533,6 +732,21 @@ namespace FinalProject
                 else if (Choice == "12")
                 {
                     DemonstrateUserDashboards();
+                }
+
+                else if (Choice == "13")
+                {
+                    AddGrade();
+                }
+
+                else if (Choice == "14")
+                {
+                    ViewStudentGrades();
+                }
+
+                else if (Choice == "15")
+                {
+                    RemoveGrade();
                 }
 
                 else if (Choice == "0")
