@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FinalProject
 {
@@ -11,7 +12,7 @@ namespace FinalProject
 
         // =========================================
         // STUDENT MANAGEMENT
-         // =========================================
+        // =========================================
 
         static void AddStudent()
         {
@@ -214,7 +215,6 @@ namespace FinalProject
 
             Console.WriteLine("Course not found.");
         }
-
 
         static void RemoveCourse()
         {
@@ -569,6 +569,36 @@ namespace FinalProject
             }
         }
 
+        static void CalculateStudentAverage()
+        {
+            Console.Write("Enter the student's ID: ");
+            string studentID = Console.ReadLine();
+
+            Student selectedStudent = students.Find(
+                student => student.ID == studentID
+            );
+
+            if (selectedStudent == null)
+            {
+                Console.WriteLine("Student not found.");
+                return;
+            }
+
+            if (selectedStudent.Grades.Count == 0)
+            {
+                Console.WriteLine(
+                    "This student does not have any grades.");
+                return;
+            }
+
+            double average = selectedStudent.Grades
+                .Average(grade => grade.Score);
+
+            Console.WriteLine();
+            Console.WriteLine($"Student: {selectedStudent.Name}");
+            Console.WriteLine($"Grade Average: {average:F2}");
+        }
+
         static void RemoveGrade()
         {
             Console.Write("Enter the student's ID: ");
@@ -791,6 +821,7 @@ namespace FinalProject
                     Console.WriteLine("[6] Add Grade");
                     Console.WriteLine("[7] Remove Grade");
                     Console.WriteLine("[8] View Student Grades");
+                    Console.WriteLine("[9] Calculate Student Average");
 
                     Console.WriteLine(" ");
                     Console.WriteLine("[0] Exit");
@@ -835,6 +866,12 @@ namespace FinalProject
                     {
                         ViewStudentGrades();
                     }
+
+                    else if (Choice == "9")
+                    {
+                        CalculateStudentAverage();
+                    }
+
                     else if (Choice == "0")
                     {
                         Console.WriteLine("Exiting program.");
@@ -875,6 +912,7 @@ namespace FinalProject
                     Console.WriteLine("[14] Add Grade");
                     Console.WriteLine("[15] View Student Grades");
                     Console.WriteLine("[16] Remove Grade");
+                    Console.WriteLine("[17] Calculate Student Average");
 
                     Console.WriteLine(" ");
                     Console.WriteLine("[0] Exit");
@@ -976,6 +1014,11 @@ namespace FinalProject
                     else if (Choice == "16")
                     {
                         RemoveGrade();
+                    }
+
+                    else if (Choice == "17")
+                    {
+                        CalculateStudentAverage();
                     }
 
                     else if (Choice == "0")
