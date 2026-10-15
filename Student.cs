@@ -31,6 +31,22 @@ namespace FinalProject
             Courses.RemoveAll(course => course.CourseID == courseID);
         }
 
+        public void ViewCourses()
+        {
+            Console.WriteLine("Enrolled Courses:");
+            if (Courses.Count == 0)
+            {
+                Console.WriteLine("None");
+            }
+            else
+            {
+                foreach (Course course in Courses)
+                {
+                    Console.WriteLine($"{course.CourseID}: {course.CourseName}");
+                }
+            }
+        }
+
         public void DisplayStudent()
         {
             Console.WriteLine($"ID: {ID}");
