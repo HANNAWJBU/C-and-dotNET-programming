@@ -11,7 +11,7 @@ namespace FinalProject
 
         // =========================================
         // STUDENT MANAGEMENT
-        // =========================================
+         // =========================================
 
         static void AddStudent()
         {
@@ -621,7 +621,7 @@ namespace FinalProject
         }
 
         // =========================================
-        // OOP DEMONSTRATION
+        // WORKDAY OOP DEMONSTRATION
         // =========================================
 
         static void DemonstrateUserDashboards()
@@ -658,6 +658,9 @@ namespace FinalProject
             administrator.DisplayDashboard();
         }
 
+        
+
+        
 
         // =========================================
         // MAIN MENU
@@ -665,151 +668,334 @@ namespace FinalProject
 
         static void Main(string[] args)
         {
-            while (true)
+            bool studentUser = false;
+            bool instructorUser = false;
+            bool administratorUser = false;
+
+            void Login()
             {
-                Console.WriteLine();
+                Console.WriteLine("Please enter your username and password.");
+                Console.WriteLine("Username: ");
+                string username = Console.ReadLine();
+                Console.WriteLine("Password: ");
+                string password = Console.ReadLine();
 
-                Console.WriteLine("===== Online Learning Management System =====");
-
-                Console.WriteLine(" ");
-                Console.WriteLine("[1] Add Student");
-                Console.WriteLine("[2] View All Students");
-                Console.WriteLine("[3] View Student");
-                Console.WriteLine("[4] Remove Student");
-                Console.WriteLine("[5] Edit Student");
-
-                Console.WriteLine(" ");
-                Console.WriteLine("[6] Add Course");
-                Console.WriteLine("[7] View All Courses");
-                Console.WriteLine("[8] View Course");
-                Console.WriteLine("[9] Remove Course");
-                Console.WriteLine("[10] Edit Course");
-
-                Console.WriteLine(" ");
-                Console.WriteLine("[11] Add Course to Student");
-                Console.WriteLine("[12] Remove Course from Student");
-
-                Console.WriteLine(" ");
-                Console.WriteLine("[13] Demonstrate User Dashboard");
-                Console.WriteLine("[14] Add Grade");
-                Console.WriteLine("[15] View Student Grades");
-                Console.WriteLine("[16] Remove Grade");
-
-                Console.WriteLine(" ");
-                Console.WriteLine("[0] Exit");
-
-                Console.Write("Choose an option: ");
-
-                string Choice = Console.ReadLine();
-
-                Console.WriteLine();
-
-
-                if (Choice == "1")
+                if (username == "student" && password == "123")
                 {
-                    AddStudent();
+                    studentUser = true;
+                    Console.WriteLine("Welcome, Student!");
+                    
                 }
-
-                else if (Choice == "2")
+                else if (username == "instructor" && password == "123")
                 {
-                    ViewAllStudents();
+                    instructorUser = true;
+                    Console.WriteLine("Welcome, Instructor!");
                 }
-
-                else if (Choice == "3")
+                else if (username == "admin" && password == "123")
                 {
-                    Console.Write(
-                        "Enter the student's ID: ");
-
-                    string studentID =
-                        Console.ReadLine();
-
-                    ViewStudent(studentID);
+                    administratorUser = true;
+                    Console.WriteLine("Welcome, Administrator!");
                 }
-
-                else if (Choice == "4")
-                {
-                    RemoveStudent();
-                }
-
-                else if (Choice == "5")
-                {
-                    EditStudent();
-                }
-
-                else if (Choice == "6")
-                {
-                    AddCourse();
-                }
-
-                else if (Choice == "7")
-                {
-                    ViewAllCourses();
-                }
-
-                else if (Choice == "8")
-                {
-                    Console.Write(
-                        "Enter the course ID: ");
-
-                    string courseID =
-                        Console.ReadLine();
-
-                    ViewCourse(courseID);
-                }
-
-                else if (Choice == "9")
-                {
-                    RemoveCourse();
-                }
-
-                else if (Choice == "10")
-                {
-                    EditCourse();
-                }
-
-                else if (Choice == "11")
-                {
-                    AddCourseToStudent();
-                }
-
-                else if (Choice == "12")
-                {
-                    RemoveCourseFromStudent();
-                }
-
-                else if (Choice == "13")
-                {
-                    DemonstrateUserDashboards();
-                }
-
-                else if (Choice == "14")
-                {
-                    AddGrade();
-                }
-
-                else if (Choice == "15")
-                {
-                    ViewStudentGrades();
-                }
-
-                else if (Choice == "16")
-                {
-                    RemoveGrade();
-                }
-
-                else if (Choice == "0")
-                {
-                    Console.WriteLine(
-                        "Exiting program.");
-
-                    break;
-                }
-
                 else
                 {
-                    Console.WriteLine(
-                        "Invalid option.");
+                    Console.WriteLine("Invalid username or password.");
                 }
+            }
+
+            Login();
+
+            while (true)
+            {
+                if (studentUser == true)
+                {
+                    Console.WriteLine("Please enter your student ID:");
+                    string studentID = Console.ReadLine();
+
+                    Student student = students.Find(s => s.ID == studentID);
+
+                    if (student == null)
+                    {
+                        Console.WriteLine("Invalid student ID.");
+                        Console.WriteLine("This will work when we add files to save students outside of the program.");
+                        continue;
+                    } 
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("===== Online Learning Management System =====");
+
+                        Console.WriteLine(" ");
+
+                        Console.WriteLine("[1] View Courses");
+                        Console.WriteLine("[2] Add Course");
+                        Console.WriteLine("[3] Drop Course");
+                        Console.WriteLine("[4] View Grades");
+                        Console.WriteLine("[5] View Instructors");
+
+                        Console.WriteLine(" ");
+                        Console.WriteLine("[0] Exit");
+
+                        Console.Write("Choose an option: ");
+
+                        string Choice = Console.ReadLine();
+
+                        Console.WriteLine();
+
+                        if (Choice == "1")
+                        {
+                            student.ViewCourses();
+                        }
+                        else if (Choice == "2")
+                        {
+                            AddCourseToStudent();
+                        }
+                        else if (Choice == "3")
+                        {
+                            RemoveCourseFromStudent();
+                        }
+                        else if (Choice == "4")
+                        {
+                            ViewStudentGrades();
+                        }
+                        else if (Choice == "5")
+                        {
+                            foreach (Course course in student.Courses)
+                            {
+                                Console.WriteLine($"Instructor for {course.CourseName}: {course.Instructor}");
+                            }
+                        }
+                        else if (Choice == "0")
+                        {
+                            Console.WriteLine("Exiting program.");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid option.");
+                        }
+                    }
+                }    
+                else if (instructorUser == true)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("===== Online Learning Management System =====");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[1] Add Course");
+                    Console.WriteLine("[2] View All Courses");
+                    Console.WriteLine("[3] View Course");
+                    Console.WriteLine("[4] Remove Course");
+                    Console.WriteLine("[5] Edit Course");
+
+                    Console.WriteLine("");
+                    Console.WriteLine("[6] Add Grade");
+                    Console.WriteLine("[7] Remove Grade");
+                    Console.WriteLine("[8] View Student Grades");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[0] Exit");
+
+                    Console.Write("Choose an option: ");
+
+                    string Choice = Console.ReadLine();
+
+                    Console.WriteLine();
+
+                    if (Choice == "1")
+                    {
+                        AddCourse();
+                    }
+                    else if (Choice == "2")
+                    {
+                        ViewAllCourses();
+                    }
+                    else if (Choice == "3")
+                    {
+                        Console.Write("Enter the course ID: ");
+                        string courseID = Console.ReadLine();
+                        ViewCourse(courseID);
+                    }
+                    else if (Choice == "4")
+                    {
+                        RemoveCourse();
+                    }
+                    else if (Choice == "5")
+                    {
+                        EditCourse();
+                    }
+                    else if (Choice == "6")
+                    {
+                        AddGrade();
+                    }
+                    else if (Choice == "7")
+                    {
+                        RemoveGrade();
+                    }
+                    else if (Choice == "8")
+                    {
+                        ViewStudentGrades();
+                    }
+                    else if (Choice == "0")
+                    {
+                        Console.WriteLine("Exiting program.");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid option.");
+                    }
+
+
+                }
+                else if (administratorUser == true)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("===== Online Learning Management System =====");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[1] Add Student");
+                    Console.WriteLine("[2] View All Students");
+                    Console.WriteLine("[3] View Student");
+                    Console.WriteLine("[4] Remove Student");
+                    Console.WriteLine("[5] Edit Student");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[6] Add Course");
+                    Console.WriteLine("[7] View All Courses");
+                    Console.WriteLine("[8] View Course");
+                    Console.WriteLine("[9] Remove Course");
+                    Console.WriteLine("[10] Edit Course");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[11] Add Course to Student");
+                    Console.WriteLine("[12] Remove Course from Student");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[13] Demonstrate User Dashboard");
+                    Console.WriteLine("[14] Add Grade");
+                    Console.WriteLine("[15] View Student Grades");
+                    Console.WriteLine("[16] Remove Grade");
+
+                    Console.WriteLine(" ");
+                    Console.WriteLine("[0] Exit");
+
+                    Console.Write("Choose an option: ");
+
+                    string Choice = Console.ReadLine();
+
+                    Console.WriteLine();
+
+
+                    if (Choice == "1")
+                    {
+                        AddStudent();
+                    }
+
+                    else if (Choice == "2")
+                    {
+                        ViewAllStudents();
+                    }
+
+                    else if (Choice == "3")
+                    {
+                        Console.Write(
+                            "Enter the student's ID: ");
+
+                        string studentID =
+                            Console.ReadLine();
+
+                        ViewStudent(studentID);
+                    }
+
+                    else if (Choice == "4")
+                    {
+                        RemoveStudent();
+                    }
+
+                    else if (Choice == "5")
+                    {
+                        EditStudent();
+                    }
+
+                    else if (Choice == "6")
+                    {
+                        AddCourse();
+                    }
+
+                    else if (Choice == "7")
+                    {
+                        ViewAllCourses();
+                    }
+
+                    else if (Choice == "8")
+                    {
+                        Console.Write(
+                            "Enter the course ID: ");
+
+                        string courseID =
+                            Console.ReadLine();
+
+                        ViewCourse(courseID);
+                    }
+
+                    else if (Choice == "9")
+                    {
+                        RemoveCourse();
+                    }
+
+                    else if (Choice == "10")
+                    {
+                        EditCourse();
+                    }
+
+                    else if (Choice == "11")
+                    {
+                        AddCourseToStudent();
+                    }
+
+                    else if (Choice == "12")
+                    {
+                        RemoveCourseFromStudent();
+                    }
+
+                    else if (Choice == "13")
+                    {
+                        DemonstrateUserDashboards();
+                    }
+
+                    else if (Choice == "14")
+                    {
+                        AddGrade();
+                    }
+
+                    else if (Choice == "15")
+                    {
+                        ViewStudentGrades();
+                    }
+
+                    else if (Choice == "16")
+                    {
+                        RemoveGrade();
+                    }
+
+                    else if (Choice == "0")
+                    {
+                        Console.WriteLine(
+                            "Exiting program.");
+
+                        break;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(
+                            "Invalid option.");
+                    }
+                } 
+                else
+                {
+                    Console.WriteLine("Invalid login.");
+                }  
             }
         }
     }
